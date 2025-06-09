@@ -8,6 +8,8 @@ Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-vo
 
 - Given a cross sectional time series of 112 stocks’ data derived from the order book and trade registers spanning from 1/1/2020 to 1/4/2020, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
 
+![28](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/28.png)
+
 The final model will be evaluated against real market data collected in a three-month evaluation period after training using the Root Mean Squared Percentage Error (RMSPE) metric.
 
 
