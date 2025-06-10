@@ -1,5 +1,5 @@
 
-# Optiver: Realized Volatitliy Prediction
+# Optiver: Realized Volatility Prediction
 
 Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-volatility-prediction
 
