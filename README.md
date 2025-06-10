@@ -7,7 +7,7 @@ Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-vo
 
 - Given a cross sectional time series of 112 stocks’ data derived from the order book and trade registers spanning from 1/1/2020 to 1/4/2020, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
 
-![28](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/28.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/28.png" alt="Alt Text" width="600" height="500">
 
 The final model will be evaluated against real market data collected in a three-month evaluation period after training using the Root Mean Squared Percentage Error (RMSPE) metric.
 
@@ -37,48 +37,59 @@ The labels/metadata in each of these files are described below:
 - target - The realized volatility computed over the 10 minute window following the feature data under the same stock/time_id. There is no overlap between feature and target data. You can find more info in our tutorial notebook.
 
 ### Measuring and Quantifying Volatility
-![3](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/3.png)
+
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/3.png" alt="Alt Text" width="400" height="100">
 
 ## Exploratory Data Analysis
 
 ### PCA
 Clustering on the input feature (wap1_log_price_ret_buks). Perform PCA on the feature matrix (time_id x stock_id) to reduce noise in the returns data.
 
-![4](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/4.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/4.png" alt="Alt Text" width="800" height="300">
 
 ### Clustering on Temporal target realized volatility correlation
 
 #### Correlation matrix before clustering
-![5](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/5.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/5.png" alt="Alt Text" width="600" height="500">
 
 #### Hierarchical Agglomerative Clustering
-![7](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/7.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/7.png" alt="Alt Text" width="800" height="250">
 
 #### Correlation matrix after clustering
-![6](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/6.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/6.png" alt="Alt Text" width="600" height="500">
 
 ### Target Exploration
 #### Target realized volatility clustering analysis
 
-![8](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/8.png)
-![9](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/9.png)
-![10](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/10.png)
+Clustering Conditional correlation between stocks from precision matrix using affinity propagation. split time frame into three regimes with 2 quarters (half year) for each regime.
+
+63*9*2 = 1134 time ids each regime. [1134, 2268, 3831]
+
+##### Time_id_index : 0 - 1134 
+
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/8.png" alt="Alt Text" width="400" height="400">
+
+##### Time_id_index : 1134 - 2268
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/9.png" alt="Alt Text" width="400" height="400">
+
+##### Time_id_index : 2268 - 3831 
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/10.png" alt="Alt Text" width="400" height="400">
 
 #### Target distribution of individual stock ids in the form of box plots
 
-![11](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/11.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/11.png" alt="Alt Text" width="1000" height="300">
 
 #### Skew and Kurtosis transformation of Target
 
-![12](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/12.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/12.png" alt="Alt Text" width="1000" height="300">
 
 ### Feature Exploration and Selection
-![13](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/13.png)
-![14](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/14.png)
-![15](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/15.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/13.png" alt="Alt Text" width="600" height="500">
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/14.png" alt="Alt Text" width="600" height="500">
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/15.png" alt="Alt Text" width="800" height="400">
 
 ## Visualize Code control flow (code2flow package)
-![16](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/16.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/16.png" alt="Alt Text" width="800" height="1600">
 
 ## Model Training and Automatic Hyperparameter Optimization
 
@@ -104,12 +115,12 @@ params = {
 ```
 
 ### Learning Curves
-![18](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/18.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/18.png" alt="Alt Text" width="800" height="500">
 
 
 
 ### Optuna hyperparameter optimization
-![17](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/17.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/17.png" alt="Alt Text" width="1000" height="300">
 
 ``` python
 Best trial:
@@ -140,25 +151,27 @@ Competition score: 0.22021 (Version 19)
 
 
 ## Train set Error Analysis
-![19](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/19.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/19.png" alt="Alt Text" width="1000" height="300">
 ##### Smallest RMSPE stock ids: [56,10,14,84,126,94,51,20,50,123]
 ##### Largest RMSPE stock ids: [31,37,18,80,33,81,60,88,110,27]
 
 ### scatter plot of Prediction Vs. Groundtruth   |   Histogram of Prediction Vs. Groundtruth
-![20](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/20.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/20.png" alt="Alt Text" width="1200" height="250">
 
 ### stock ids with with largest gaps (discontinous support) in histograms
-![21](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/21.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/21.png" alt="Alt Text" width="1200" height="300">
 
 ### Residual Analysis
-![22](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/22.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/22.png" alt="Alt Text" width="800" height="650">
+
+### Feature Interactions analysis
+
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/24.png" alt="Alt Text" width="600" height="300">
 
 ## Test set Error Analysis
 
-![23](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/23.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/23.png" alt="Alt Text" width="1000" height="300">
 
-
-![24](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/24.png)
 ##### Smallest RMSPE stock ids: [77,56,35,14,61,126,84,44,96,76]
 ##### Largest RMSPE stock ids: [31,37,88,18,110,112,27,33,58,60]
 
@@ -166,7 +179,7 @@ Competition score: 0.22021 (Version 19)
 
 ### A separate ‘Medium-Bias-Low-variance’ RF model for Stock_id = 31 
 
-''' python
+``` python 
 Study statistics: 
   Number of finished trials:  75
   Number of pruned trials:  0
@@ -187,18 +200,18 @@ Final model
 
 Train RMSPE for st 31 only: 0.310
 Test RMSPE  for st 31 only: 0.379
-'''
+```
 
-![25](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/25.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/25.png" alt="Alt Text" width="800" height="300">
 
 
 # Final Competition Score (After deadline)
 
 ### Our score
-![26](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/26.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/26.png" alt="Alt Text" width="600" height="300">
 
 ### Our standing amongst top 100 rank
-![27](https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/27.png)
+<img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/27.png" alt="Alt Text" width="600" height="300">
 
 
 
