@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/c6f0b02e-1e86-474a-a30a-ed2eb40ca1b0)
 # Optiver: Realized Volatility Prediction
 
 Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-volatility-prediction
@@ -41,12 +41,12 @@ The labels/metadata in each of these files are described below:
 ### Quirks of the competition
 The host of the competition obfuscated and anonymized the ticker symbols of the stocks. To prevent inferring the actual stock ticker; Temporal ordering of the time ids for All stocks are deliberately jumbled and the prices of stocks are normalized by price at seconds_in_bucket = 0 within each time id. 
 
-### Reverse engineering the denormalized prices and correct time id order
+### Reverse engineering the denormalized prices and correct time id order (in order to improve competition score)
 
 We try to roughly recreate the correct time_id order so that time series techniques such as walk-forward cross validation can be performed. However, we cannot create time series features because we cannot infer the time_id order in the test set. 
 
 * using information about minimum tick level of $0.01 in denormalized prices and minimum difference in normalized prices, we can infer the price at seconds_in_bucket = 0 within a time_id as $0.01 / minimum_normalized_price_difference. We can multiply this with normalized price difference of all remaining seconds_in_bucket to get the actual denormalized price time series in each time_id
-* Given 112 stock_ids with 3830 (jumbled) time_ids where each time id has a price time series spanning 600 seconds, we want to reorder the time ids so that the nearest and most continuous prices are aligned together. The time series in each time_id can be aggreated into a single number like the average price so that a matrix of 3830 time_ids x 112 stock_ids can be created. In the high dimensional feature space samples that will be distributed and localized based on their closeness in terms of distances like Euclidean distance to their true neighbouring samples. The non-linear dimensionality reduction technique, T-SNE allows to faithfully visualize this distribution and localization as a 2d manifold. 
+* Given 112 stock_ids with 3830 (jumbled) time_ids where each time id has a price time series spanning 600 seconds, we want to reorder the time ids so that the nearest and most continuous prices are aligned together. The time series in each time_id can be aggreated into a single number like the average price so that a matrix of 3830 time_ids x 112 stock_ids can be created. In the high dimensional feature space samples that will be distributed and localized based on their closeness in terms of distances like Euclidean distance to their true neighbouring samples. The non-linear dimensionality reduction technique, T-SNE allows to visualize this distribution and localization as a 2d manifold. Other techniques like KNN or DTW is also possible.
 
 ### Measuring and Quantifying Volatility
 
