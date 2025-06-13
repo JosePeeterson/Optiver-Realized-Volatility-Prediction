@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/c6f0b02e-1e86-474a-a30a-ed2eb40ca1b0)
 # Optiver: Realized Volatility Prediction
 
 Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-volatility-prediction
