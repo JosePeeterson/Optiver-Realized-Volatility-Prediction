@@ -5,7 +5,7 @@ Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-vo
 
 ## Competition objectives 
 
-- Given a cross sectional time series of 112 stocks’ data derived from the order book and trade registers spanning from 1/1/2020 to 1/4/2020, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
+- Given a cross sectional time series of 112 stocks’ data derived from the order book and trade registers spanning from an unknown period, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
 
 <img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/28.png" alt="Alt Text" width="600" height="500">
 
@@ -14,27 +14,39 @@ The final model will be evaluated against real market data collected in a three-
 
 ### Raw Datasets
 The training datasets provided to build the models consist of 4 parquet files and 1 csv files.  They are book_[train/test].parquet, trade_[train/test].parquet, and train.csv.
-All predictor variables and features can be found inside the 4 parquet files. The target can be found in the “train.csv” file
+
+All predictor variables and features can be found inside the 4 parquet files. The target can be found in the “train.csv” file.
+
 The labels/metadata in each of these files are described below:
-##### book_[train/test].parquet A parquet file partitioned by stock_id. Provides order book data on the most competitive buy and sell orders entered into the market. The top two levels of the book are shared. The first level of the book will be more competitive in price terms, it will then receive execution priority over the second level.
-- stock_id - ID code for the stock. Not all stock IDs exist in every time bucket. Parquet coerces this column to the categorical data type when loaded; you may wish to convert it to int8.
+##### book_[train/test].parquet: A parquet file partitioned by stock_id. Provides order book data on the most competitive buy and sell orders entered into the market. The top two levels of the book are shared. 
+- stock_id - ID code for the stock. Not all stock IDs exist in every time bucket. 
 - time_id - ID code for the time bucket. Time IDs are not necessarily sequential but are consistent across all stocks.
 - seconds_in_bucket - Number of seconds from the start of the bucket, always starting from 0.
 - bid_price[1/2] - Normalized prices of the most/second most competitive buy level.
 - ask_price[1/2] - Normalized prices of the most/second most competitive sell level.
 - bid_size[1/2] - The number of shares on the most/second most competitive buy level.
 - ask_size[1/2] - The number of shares on the most/second most competitive sell level.
-##### trade_[train/test].parquet A parquet file partitioned by stock_id. Contains data on trades that actually executed. Usually, in the market, there are more passive buy/sell intention updates (book updates) than actual trades, therefore one may expect this file to be more sparse than the order book.
+##### trade_[train/test].parquet: A parquet file partitioned by stock_id. Contains data on trades that actually executed. Usually, in the market, there are more passive buy/sell intention updates (book updates) than actual trades, therefore one may expect this file to be more sparse than the order book.
 - stock_id - Same as above.
 - time_id - Same as above.
 - seconds_in_bucket - Same as above. Note that since trade and book data are taken from the same time window and trade data is more sparse in general, this field is not necessarily starting from 0.
 - price - The average price of executed transactions happening in one second. Prices have been normalized and the average has been weighted by the number of shares traded in each transaction.
 - size - The sum number of shares traded.
-- order_count - The number of unique trade orders taking place. (size/order_count can be used as a single variable to measure average shares/trade)
-##### train. csv The ground truth values for the training set.
-- stock_id - Same as above, but since this is a csv the column will load as an integer instead of categorical.
+- order_count - The number of unique trade orders taking place. (size per order_count can be used as a single variable to measure average shares per trade)
+##### train.csv: The ground truth values for the training set.
+- stock_id - Same as above, 
 - time_id - Same as above.
-- target - The realized volatility computed over the 10 minute window following the feature data under the same stock/time_id. There is no overlap between feature and target data. You can find more info in our tutorial notebook.
+- target - The realized volatility computed over the 10 minute window following the feature data's 10 minute window under the same stock_id and time_id. There is no overlap between feature and target data.
+
+### Quirks of the competition
+The host of the competition obfuscated and anonymized the ticker symbols of the stocks. To prevent inferring the actual stock ticker; Temporal ordering of the time ids for All stocks are deliberately jumbled and the prices of stocks are normalized by price at seconds_in_bucket = 0 within each time id. 
+
+### Reverse engineering the denormalized prices and correct time id order
+
+We try to roughly recreate the correct time_id order so that time series techniques such as walk-forward cross validation can be performed. However, we cannot create time series features because we cannot infer the time_id order in the test set. 
+
+* using information about minimum tick level of $0.01 in denormalized prices and minimum difference in normalized prices, we can infer the price at seconds_in_bucket = 0 within a time_id as $0.01 / minimum_normalized_price_difference. We can multiply this with normalized price difference of all remaining seconds_in_bucket to get the actual denormalized price time series in each time_id
+* Given 112 stock_ids with 3830 (jumbled) time_ids where each time id has a price time series spanning 600 seconds, we want to reorder the time ids so that the nearest and most continuous prices are aligned together. The time series in each time_id can be aggreated into a single number like the average price so that a matrix of 3830 time_ids x 112 stock_ids can be created. In the high dimensional feature space samples that will be distributed and localized based on their closeness in terms of distances like Euclidean distance to their true neighbouring samples. The non-linear dimensionality reduction technique, T-SNE allows to faithfully visualize this distribution and localization as a 2d manifold. 
 
 ### Measuring and Quantifying Volatility
 
