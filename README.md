@@ -40,6 +40,33 @@ The labels/metadata in each of these files are described below:
 
 <img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/3.png" alt="Alt Text" width="400" height="100">
 
+## Feature Engineering
+
+### 1.	Liquidity Features:
+* Bid-ask spread: Widening spreads may indicate increased uncertainty or market stress, leading to higher volatility.
+* Bid-ask size: Larger bid-ask sizes may indicate deeper liquidity and lower volatility, while smaller sizes may suggest thinner markets and higher volatility.
+* Order book depth: Deeper order books with more substantial quantities at various price levels may provide stability and dampen volatility.
+### 2.	Price and Volume Features:
+* Trade price: Extreme price movements may signal increased volatility, while stable prices may indicate lower volatility.
+* Trade size: Larger trade sizes may lead to more significant price changes and higher volatility, especially in illiquid markets.
+* Trade volume: Higher trading volumes may coincide with increased volatility, as heightened market activity reflects changing investor sentiment and price dynamics.
+### 3.	Volatility Indicators:
+* High-low range: Wider price ranges between highs and lows suggest greater price fluctuations and higher volatility.
+* Volatility clustering: Periods of high volatility tend to cluster together, leading to persistence in volatility levels over time.
+* Implied volatility: Changes in implied volatility may precede shifts in realized volatility, as options traders adjust their expectations of future price movements.
+### 4.	Temporal Features:
+* Lagged variables: Past volatility levels and price movements can influence current volatility, as volatility tends to exhibit serial correlation over time.
+* Moving averages: Moving averages smooth out short-term fluctuations and can help identify trends or changes in volatility regimes.
+* Autocorrelation: Positive autocorrelation in volatility suggests persistence in volatility levels, while negative autocorrelation may indicate mean-reverting behaviour.
+### 5.	Market Microstructure Features:
+* Order flow imbalance: Imbalances between buy and sell orders may lead to price pressure and subsequent volatility spikes.
+* Price impact: Large trades can have a significant impact on prices, leading to short-term volatility.
+* Spread dynamics: Changes in bid-ask spreads may reflect shifts in market sentiment and liquidity conditions, influencing volatility.
+### 6.	Correlation and Co-movement:
+* Cross-correlations: Correlations between stock returns can affect portfolio volatility, especially during periods of market-wide shocks or systemic risk.
+* Co-integration: Long-term relationships between stock prices may influence volatility dynamics, especially in pairs trading or arbitrage strategies.
+
+
 ## Exploratory Data Analysis
 
 ### PCA
