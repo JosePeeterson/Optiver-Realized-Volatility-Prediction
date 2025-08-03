@@ -4,7 +4,7 @@ Kaggle competition link: https://www.kaggle.com/competitions/optiver-realized-vo
 
 ## Competition objectives 
 
-- Given a cross sectional time series of 112 stocks’ data derived from the order book and trade registers spanning from an unknown period, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
+- Given a cross sectional time series of 112 anonymous stocks’ data derived from the order book and trade registers spanning from an unknown period, the main objective is to build models that predict short-term volatility (future 10 minutes volatility) for hundreds of stocks across different sectors in the S&P500 universe. 
 
 <img src="https://raw.githubusercontent.com/JosePeeterson/Optiver-Realized-Volatility-Prediction/main/docs/images/28.png" alt="Alt Text" width="600" height="500">
 
